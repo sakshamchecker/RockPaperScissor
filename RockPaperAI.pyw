@@ -1,5 +1,6 @@
 from tkinter import Tk,Button,Label,StringVar,Entry
 import random
+import smtplib
 from win import window
 scorec=0
 scorep=0
@@ -60,6 +61,15 @@ def cle():
     final_dis.delete(0,'end')
     scorec_dis.delete(0,'end')
     scorep_dis.delete(0,'end')
+    mail_in.delete(0,'end')
+def mail():
+    s=smtplib.SMTP('smtp.gmail.com',587)
+    s.starttls()
+    s.login('samplemail@domain.com','password')
+    message=f'Computer Score is {scorec} and Player Score is {scorep}'
+    rec=str(maili.get())
+    s.sendmail('samplemail@domain.com',rec,message)
+    s.close()
 
 user_in=Label(window,text='User',bg='black',fg='white',width=14)
 user_in.grid(column=0,row=0,pady=20,padx=20)
@@ -108,9 +118,15 @@ scorec_dis.delete(0,'end')
 final_lbl=Label(window,text='FINAL',bg='black',fg='white',width=20)
 final_lbl.grid(column=0,row=5,padx=20,pady=20)
 final=StringVar()
-final_dis=Entry(window,textvariable=final,width=25)
+final_dis=Entry(window,textvariable=final,width=14)
 final_dis.grid(column=2,row=5,padx=20,pady=20)
 final_dis.delete(0,'end')
 
+maili=StringVar()
+mail_in=Entry(window,textvariable=maili,width=14)
+mail_in.grid(column=0,row=6,pady=20,padx=20)
+mail_in.delete(0,'end')
+mail_button=Button(window,text='MAIL',bg='red',fg='white',width=14,command=mail)
+mail_button.grid(column=1,row=6,pady=20,padx=20)
 
 window.mainloop()
