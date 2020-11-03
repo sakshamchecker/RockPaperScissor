@@ -2,16 +2,17 @@ from tkinter import Tk,Button,Label,StringVar,Entry
 import random
 from win import window
 def ro():
-    val='r'
+    val='Rock'
     user_val.set(val)
 def pa():
-    val='p'
+    val='Paper'
     user_val.set(val)
 def sc():
-    val='s'
+    val='Scissor'
     user_val.set(val)
 def play():
     a=user_val.get()
+    a=a[0].lower()
     c = random.randint(0, 2)
     if c == 0:
         b = 'r'
@@ -24,17 +25,18 @@ def play():
         cc.set('Computer-Scissor')
     if (a[0] == 'r' or a[0] == 'p' or a[0] == 's') and (b[0] == 'r' or b[0] == 'p' or b[0] == 's'):
         if (a[0] == 'r' and b[0] == 's') or (a[0] == 'p' and b[0] == 'r') or (a[0] == 's' and b[0] == 'p'):
-            res.set('Player wins')
+            result.set('Player wins')
         elif a[0] == b[0]:
-            res.set('Draw')
+            result.set('Draw')
         else:
-            res.set('Computer wins')
+            result.set('Computer wins')
     else:
         res.set('Retry')
 def cle():
     user_val=''
     res=''
-    res_entry.delete(0,'end')
+    user_en.delete(0,'end')
+    result_entry.delete(0,'end')
     cc_entry.delete(0,'end')
 user_in=Label(window,text='User',bg='black',fg='white',width=14)
 user_in.grid(column=0,row=0,pady=20,padx=20)
@@ -49,11 +51,15 @@ scissor.grid(column=3,row=0,padx=20,pady=20)
 play=Button(window,text='Play',bg='red',fg='white',width=14,command=play)
 play.grid(column=0,row=1,padx=20,pady=20)
 
-res=StringVar()
-res_entry= Entry(window,textvariable=res,width=20)
-res_entry.grid(column=1,row=1,padx=20,pady=20)
-res_entry.delete(0,'end')
+result_label=Label(window,text='Result',bg='black',fg='white',width=14)
+result_label.grid(column=0,row=2,padx=20,pady=20)
+result=StringVar()
+result_entry= Entry(window,textvariable=result,width=20)
+result_entry.grid(column=2,row=2,padx=20,pady=20)
+result_entry.delete(0,'end')
 
+user_en=Entry(window,textvariable=user_val,width=20)
+user_en.grid(column=1,row=1,pady=20,padx=20)
 cc=StringVar()
 cc_entry= Entry(window,textvariable=cc,width=20)
 cc_entry.grid(column=2,row=1,padx=20,pady=20)
